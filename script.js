@@ -5,6 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors',
 }).addTo(map);
 
+// Criando camadas
 const schools = L.layerGroup();
 const healthCenters = L.layerGroup();
 const shoppings = L.layerGroup();
@@ -42,6 +43,7 @@ function showSchools() {
   map.removeLayer(shoppings);
   map.addLayer(schools);
   map.setView([-22.861703, -43.774681], 14);
+  currentLayer.clearLayers();
 }
 
 function showHealthCenters() {
@@ -49,6 +51,7 @@ function showHealthCenters() {
   map.removeLayer(shoppings);
   map.addLayer(healthCenters);
   map.setView([-22.861703, -43.774681], 14);
+  currentLayer.clearLayers();
 }
 
 function showShoppings() {
@@ -56,10 +59,37 @@ function showShoppings() {
   map.removeLayer(healthCenters);
   map.addLayer(shoppings);
   map.setView([-22.861703, -43.774681], 14);
+  currentLayer.clearLayers();
 }
 
-// Descobrir coordenadas
+const currentLayer = L.layerGroup();
 
+// Adicionar um novo lugar
+function openAddPlaces() {
+  // Remover todos os marcadores da camada shoppings
+  currentLayer.clearLayers();
+
+  const places = {
+    name: prompt('Nome do local', 'Pica pau'),
+    location: [
+      Number(prompt('latitude', '-22.863047')),
+      Number(prompt('Longitude', '-43.775282')),
+    ],
+  };
+
+  // Adicionar o novo marcador à camada shoppings e ao mapa
+  const marker = L.marker(places.location)
+    .bindPopup(places.name)
+    .addTo(currentLayer)
+    .addTo(schools);
+
+  // Adicionar a camada shoppings ao mapa novamente (pode ser necessário)
+  map.addLayer(currentLayer);
+
+  console.log(places);
+}
+
+// Descobrir coordenadas-------------------------------------
 var popup = L.popup();
 
 function onMapClick(e) {
@@ -68,7 +98,6 @@ function onMapClick(e) {
     .setContent('You clicked the map at ' + e.latlng.toString())
     .openOn(map);
 }
-
 map.on('click', onMapClick);
 
 // Geolocalizacao
@@ -86,21 +115,3 @@ map.on('click', onMapClick);
 // }
 
 // map.on('locationerror', onLocationError);
-
-function openAddPlaces() {
-  const places = {
-    name: prompt('Nome do local', 'Pica pau'),
-    location: [
-      Number(prompt('latitude', '-22.863047')),
-      Number(prompt('Longitude', '-43.775282')),
-    ],
-  };
-
-  schoolCoords.push(places);
-  const marker = L.marker(places.location)
-    .bindPopup(places.name)
-    .addTo(shoppings)
-    .addTo(map);
-
-  console.log(places.name, places.location);
-}
