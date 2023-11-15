@@ -68,7 +68,7 @@ function onMapClick(e) {
 
 // Geolocalizacao
 
-map.locate({ setView: false, maxZoom: 16 });
+map.locate({ setView: true, minZoom: 16 });
 
 function onLocationFound(e) {
   L.marker(e.latlng).addTo(map);
