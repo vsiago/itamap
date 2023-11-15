@@ -1,0 +1,37 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.topbar {
+  background-color: rgba(0, 0, 0, .9);
+  display: flex;
+  gap: 5px;
+  padding: .5rem 0;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.topbar button {
+  background: rgba(0, 0, 0, .5);
+  color: rgba(255, 255, 255, .9);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 100ms ease-in-out;
+}
+.topbar button:hover {
+  background: rgba(255, 255, 255, .9);
+  color: rgba(0, 0, 0, .8);
+  border-radius: 4px;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
