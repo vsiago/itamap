@@ -29,7 +29,7 @@ const shoppingsCoords = [
 
 function addMarkers(layer, coords) {
   for (var i = 0; i < coords.length; i++) {
-    L.marker(coords[i].location).bindPopup(coords[i].name).addTo(layer);
+    L.marker(coords[i].location, 14).bindPopup(coords[i].name).addTo(layer);
   }
 }
 
@@ -41,18 +41,21 @@ function showSchools() {
   map.removeLayer(healthCenters);
   map.removeLayer(shoppings);
   map.addLayer(schools);
+  map.setView([-22.861703, -43.774681], 14);
 }
 
 function showHealthCenters() {
   map.removeLayer(schools);
   map.removeLayer(shoppings);
   map.addLayer(healthCenters);
+  map.setView([-22.861703, -43.774681], 14);
 }
 
 function showShoppings() {
   map.removeLayer(schools);
   map.removeLayer(healthCenters);
   map.addLayer(shoppings);
+  map.setView([-22.861703, -43.774681], 14);
 }
 
 // Descobrir coordenadas
@@ -72,8 +75,6 @@ map.locate({ setView: true, minZoom: 16 });
 
 function onLocationFound(e) {
   L.marker(e.latlng).addTo(map);
-
-  L.circle(e.latlng, radius).addTo(map);
 }
 
 map.on('locationfound', onLocationFound);
