@@ -8,6 +8,7 @@ body, html {
   display: flex;
   gap: 5px;
   padding: .5rem 5px;
+  padding-left: 57px;
   justify-content: start;
   align-items: center;
   overflow: auto;
@@ -33,13 +34,14 @@ body, html {
 }
 
 #buttonAddPlaces {
+  position: absolute;
+  left: 5px;
   width: 47px;
-  background-color: blue;
+  background-color: #1689DB;
   color: white;
 }
 #buttonAddPlaces:hover {
-  background-color: blue;
-  opacity: .7;
+  background-color: #4092DB;
 }
 
 #map {
