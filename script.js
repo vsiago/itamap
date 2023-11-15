@@ -65,22 +65,42 @@ var popup = L.popup();
 function onMapClick(e) {
   popup
     .setLatLng(e.latlng)
-    .setContent('Você clicou no mapa em ' + e.latlng.toString())
+    .setContent('You clicked the map at ' + e.latlng.toString())
     .openOn(map);
 }
 
+map.on('click', onMapClick);
+
 // Geolocalizacao
 
-map.locate({ setView: true, minZoom: 16 });
+// map.locate({ setView: true, minZoom: 16 });
 
-function onLocationFound(e) {
-  L.marker(e.latlng).addTo(map);
+// function onLocationFound(e) {
+//   L.marker(e.latlng).addTo(map);
+// }
+
+// map.on('locationfound', onLocationFound);
+
+// function onLocationError(e) {
+//   alert(e.message);
+// }
+
+// map.on('locationerror', onLocationError);
+
+function openAddPlaces() {
+  const places = {
+    name: prompt('Nome do local', 'Pica pau'),
+    location: [
+      Number(prompt('latitude', '-22.863047')),
+      Number(prompt('Longitude', '-43.775282')),
+    ],
+  };
+
+  schoolCoords.push(places);
+  const marker = L.marker(places.location)
+    .bindPopup(places.name)
+    .addTo(shoppings)
+    .addTo(map);
+
+  console.log(places.name, places.location);
 }
-
-map.on('locationfound', onLocationFound);
-
-function onLocationError(e) {
-  alert(e.message);
-}
-
-map.on('locationerror', onLocationError);
