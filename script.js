@@ -100,6 +100,22 @@ function onMapClick(e) {
 }
 map.on('click', onMapClick);
 
+// Adicionar Malhas utilizando a API do IBGE
+
+async function loadGeoJson(idCidade) {
+  try {
+    const request = await fetch("https://servicodados.ibge.gov.br/api/v3/malhas/municipios/" + idCidade + "?formato=application/vnd.geo+json");
+    const response = await request.json();
+    //
+    L.geoJSON(response).addTo(map);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+loadGeoJson(3302007) 
+
 // Geolocalizacao
 
 // map.locate({ setView: true, minZoom: 16 });
