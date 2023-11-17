@@ -114,7 +114,7 @@ async function loadGeoJson(idCidade) {
   }
 }
 
-loadGeoJson(3302007) 
+//loadGeoJson(3302007) Malha itaguaí 
 
 // Geolocalizacao
 
@@ -131,3 +131,34 @@ loadGeoJson(3302007)
 // }
 
 // map.on('locationerror', onLocationError);
+
+
+    // Adicione o arquivo .kmz ao mapa
+    function loadKMZFile(kmzFilePath) {
+      fetch(kmzFilePath)
+        .then(response => response.arrayBuffer())
+        .then(kmzData => {
+          return JSZip.loadAsync(kmzData);
+        })
+        .then(zip => {
+          const kmlFile = Object.keys(zip.files).find(filename => /\.kml$/i.test(filename));
+          if (kmlFile) {
+            return zip.file(kmlFile).async('string');
+          } else {
+            throw new Error('No KML file found in the KMZ archive.');
+          }
+        })
+        .then(kmlString => {
+          const geojson = toGeoJSON.kml(new DOMParser().parseFromString(kmlString, 'text/xml'));
+          const trackLayer = L.geoJSON(geojson);
+
+          map.addLayer(trackLayer);
+          map.fitBounds(trackLayer.getBounds());
+        })
+        .catch(error => {
+          console.error('Error loading KMZ file:', error);
+        });
+    }
+
+    // Chame a função com o caminho do arquivo .kmz
+    loadKMZFile('/unids-pref-ita.kmz');
