@@ -160,5 +160,5 @@ async function loadGeoJson(idCidade) {
         });
     }
 
-    // Chame a função com o caminho do arquivo .kmz
+    //  invocação da função do caminho .kmz
     loadKMZFile('/unids-pref-ita.kmz');
